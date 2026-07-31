@@ -1,0 +1,19 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "",
+	"Category": "",
+	"Description": "GlobalShader 学习工程：包含一个演示 Pixel Shader / Compute Shader 的插件 GlobalShaderLab。",
+	"Modules": [
+		{
+			"Name": "GlobalShaderPlugin",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "GlobalShaderLab",
+			"Enabled": true
+		}
+	]
+}

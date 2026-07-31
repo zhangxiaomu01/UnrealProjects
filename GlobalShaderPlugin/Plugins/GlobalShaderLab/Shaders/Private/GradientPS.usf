@@ -1,0 +1,32 @@
+// ============================================================================
+// GradientPS.usf —— FGradientPS 对应的 Pixel Shader 源码
+// ----------------------------------------------------------------------------
+// 约定：这里的全局变量名必须和 C++ 端 SHADER_PARAMETER(...) 声明的成员名一一对应，
+//       UE 的 shader 参数框架会自动把它们绑定起来。
+//       入口函数名 "MainPS" 必须和 IMPLEMENT_GLOBAL_SHADER(...,"MainPS",...) 一致。
+// ============================================================================
+
+#include "/Engine/Public/Platform.ush"
+
+// 与 C++ 端 SHADER_PARAMETER 对应：
+float4 ColorA;       // 渐变上端颜色
+float4 ColorB;       // 渐变下端颜色
+float2 TextureSize;  // 输出纹理尺寸（像素）
+float   Time;        // 时间
+
+// SV_POSITION 是像素的屏幕坐标（像素单位）。out 到 SV_Target0 即写入渲染目标。
+void MainPS(float4 SvPosition : SV_POSITION, out float4 OutColor : SV_Target0)
+{
+	// 把像素坐标归一化到 0~1，得到 UV
+	float2 UV = SvPosition.xy / TextureSize;
+
+	// 按纵向做颜色插值
+	float  T = UV.y;
+	float4 Color = lerp(ColorA, ColorB, T);
+
+	// 叠加一层随时间和水平位置变化的亮度调制，让画面动起来
+	float Wave = 0.5 + 0.5 * sin(Time * 1.5 + UV.x * 6.2831853 * 2.0);
+	Color.rgb *= Wave;
+
+	OutColor = Color;
+}

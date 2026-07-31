@@ -1,0 +1,39 @@
+// ============================================================================
+// PatternCS.usf —— FPatternCS 对应的 Compute Shader 源码
+// ----------------------------------------------------------------------------
+// 计算着色器的入口由 [numthreads(x,y,z)] 与 C++ 端 GroupCount 共同决定总线程数。
+// 这里每 8x8 个线程为一组（与 BPLibrary.cpp 里的 GroupSize=8 对应）。
+// ============================================================================
+
+#include "/Engine/Public/Platform.ush"
+
+// FIntPoint 在 HLSL 端映射为 int2
+int2  TextureSize;   // 纹理尺寸 = 需要覆盖的像素范围
+float Time;
+
+// 可读写纹理（UAV）。元素类型 float4 由纹理格式决定；与 C++ 端
+// SHADER_PARAMETER_RDG_TEXTURE_UAV(RWTexture2D, OutputTexture) 对应。
+RWTexture2D<float4> OutputTexture;
+
+[numthreads(8, 8, 1)]
+void MainCS(uint3 DispatchThreadId : SV_DispatchThreadID)
+{
+	// 越界保护：线程组按 8 对齐，可能超过实际纹理尺寸
+	if (any(int2(DispatchThreadId.xy) >= TextureSize))
+	{
+		return;
+	}
+
+	// 归一化坐标，以中心为原点
+	float2 UV = float2(DispatchThreadId.xy) / float2(TextureSize);
+	float2 Centered = UV - 0.5;
+
+	// 一个随距离/时间变化的同心圆波纹图案
+	float Dist = length(Centered);
+	float Wave = sin(Dist * 60.0 - Time * 4.0) * 0.5 + 0.5;
+
+	float3 Color = lerp(float3(0.10, 0.20, 0.80), float3(1.00, 0.40, 0.10), Wave);
+
+	// 写入对应像素（UAV 直接按整数坐标写）
+	OutputTexture[DispatchThreadId.xy] = float4(Color, 1.0);
+}

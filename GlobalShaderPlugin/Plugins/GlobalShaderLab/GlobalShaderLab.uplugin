@@ -1,0 +1,18 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "Global Shader Lab",
+	"Description": "GlobalShader 学习示例：演示 FGlobalShader 声明、RDG 提交 Pixel/Compute Shader 的完整流程。",
+	"Category": "Rendering",
+	"CreatedBy": "Learner",
+	"CanContainContent": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "GlobalShaderLab",
+			"Type": "Runtime",
+			"LoadingPhase": "PostConfigInit"
+		}
+	]
+}
