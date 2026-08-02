@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "",
+	"EngineAssociation": "{8665E57A-49F2-8C10-F476-3397F9415350}",
 	"Category": "",
 	"Description": "GlobalShader 学习工程：包含一个演示 Pixel Shader / Compute Shader 的插件 GlobalShaderLab。",
 	"Modules": [
