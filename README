@@ -1,0 +1,27 @@
+# Unreal Projects 学习工程索引
+
+本目录用于存放基于 UE 5.7.3 引擎源码创建的个人学习工程。
+
+---
+
+## 工程列表
+
+### 1. GlobalShaderPlugin（GlobalShader 学习示例）
+
+**路径**：`j:\UnrealSource\UnrealProjects\GlobalShaderPlugin`
+
+**简介**：
+这是一个用于学习和验证 Unreal Engine 5.7.3 中 `FGlobalShader` 使用方法的示例工程。它展示了如何在插件中声明、实现并提交一个全局 Pixel Shader 和 Compute Shader，是理解 UE 渲染管线（Render Graph / RDG）的最小化实践案例。
+
+**核心功能**：
+*   **Pixel Shader 示例（FGradientPS）**：在渲染线程绘制一段颜色渐变到 `TextureRenderTarget2D`。
+*   **Compute Shader 示例（FPatternCS）**：使用 Compute Shader 生成一段程序化的波纹图案。
+*   **RDG 提交演示**：演示如何使用 `FRDGBuilder` 录制渲染图，并通过 `AddFullscreenPass` 和 `AddCopyTexturePass` 将 Pass 提交到 GPU。
+*   **蓝图接口**：提供了 `UGlobalShaderLabBPLibrary`，允许在蓝图中直接触发这些 Shader 逻辑，便于快速调试和验证。
+
+**涉及的关键技术点**：
+*   `DECLARE_GLOBAL_SHADER` / `SHADER_USE_PARAMETER_STRUCT` 宏的使用
+*   `IMPLEMENT_GLOBAL_SHADER` 绑定 `.usf` 文件的虚拟路径约定
+*   `ENQUEUE_RENDER_COMMAND` 切到渲染线程
+*   `FComputeShaderUtils::AddPass` 派发 Compute Shader
+*   插件中 `Shaders/Private/` 目录结构的重要性
