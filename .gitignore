@@ -5,3 +5,8 @@ GlobalShaderPlugin/Intermediate/
 GlobalShaderPlugin/Plugins/GlobalShaderLab/Intermediate/
 GlobalShaderPlugin/.vsconfig
 GlobalShaderPlugin/GlobalShaderPlugin.sln
+GlobalShaderPlugin/Binaries/
+GlobalShaderPlugin/Plugins/GlobalShaderLab/Binaries/
+GlobalShaderPlugin/Content/__ExternalActors__/
+GlobalShaderPlugin/Content/__ExternalObjects__/
+GlobalShaderPlugin/DerivedDataCache/

@@ -61,7 +61,7 @@ void UGlobalShaderLabBPLibrary::DrawGradientToRenderTarget(
 			// 2) 把外部 RHI 纹理“注册”进 RDG，作为本 Pass 的渲染目标（输出）。
 			FRDGTextureRef OutputTexture = GraphBuilder.RegisterExternalTexture(
 				CreateRenderTarget(RTResource->TextureRHI, TEXT("GradientOutput")));
-			Params->RenderTargets[0] = FRenderTargetBinding(OutputTexture, ERenderTargetLoadAction::Clear);
+			Params->RenderTargets[0] = FRenderTargetBinding(OutputTexture, ERenderTargetLoadAction::EClear);
 
 			// 3) 取出全局 Shader：GlobalShaderMap 在引擎启动时就为所有 FGlobalShader 编译好。
 			FGlobalShaderMap* GlobalShaderMap = GetGlobalShaderMap(GMaxRHIFeatureLevel);
